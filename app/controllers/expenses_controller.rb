@@ -34,7 +34,7 @@ class ExpensesController < ApplicationController
 
     if @expense.update_attributes(expense_params)
       flash[:notice] = 'Your expense has been successfully updated'
-      redirect_to user_expenses_path(user_id: user.id)
+      redirect_to user_expenses_path(user)
     else
       flash[:error] = @expense.errors.full_messages.join("; ")
       render :edit
@@ -46,7 +46,7 @@ class ExpensesController < ApplicationController
     user = find_user
     expense.mark_as_deleted!
 
-    redirect_to user_expenses_path(user_id: user.id)
+    redirect_to user_expenses_path(user)
   end
 
   private
