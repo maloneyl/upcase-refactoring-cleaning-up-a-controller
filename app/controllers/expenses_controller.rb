@@ -1,6 +1,6 @@
 class ExpensesController < ApplicationController
   def index
-    @user = User.find(params[:user_id])
+    @user = find_user
 
     if params[:approved].nil?
       @expenses = Expense.where(user: @user, deleted: false)
@@ -18,11 +18,11 @@ class ExpensesController < ApplicationController
   end
 
   def new
-    @user = User.find(params[:user_id])
+    @user = find_user
   end
 
   def create
-    user = User.find(params[:user_id])
+    user = find_user
 
     @expense = user.expenses.new(expense_params)
 
@@ -38,7 +38,7 @@ class ExpensesController < ApplicationController
   end
 
   def update
-    user = User.find(params[:user_id])
+    user = find_user
 
     @expense = user.expenses.find(params[:id])
 
@@ -61,13 +61,17 @@ class ExpensesController < ApplicationController
 
   def destroy
     expense = Expense.find(params[:id])
-    user = User.find(params[:user_id])
+    user = find_user
     expense.update_attributes!(deleted: true)
 
     redirect_to user_expenses_path(user_id: user.id)
   end
 
   private
+
+  def find_user
+    @_user ||= User.find(params[:user_id])
+  end
 
   def expense_params
     params.require(:expense).permit(:name, :amount, :approved)
