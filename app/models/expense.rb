@@ -4,4 +4,8 @@ class Expense < ActiveRecord::Base
   validates :amount, presence: true
 
   scope :active, -> { where(deleted: false) }
+
+  def mark_as_deleted!
+    update_attributes!(deleted: true)
+  end
 end

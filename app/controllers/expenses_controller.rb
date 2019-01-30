@@ -45,7 +45,7 @@ class ExpensesController < ApplicationController
   def destroy
     expense = Expense.find(params[:id])
     user = find_user
-    expense.update_attributes!(deleted: true)
+    expense.mark_as_deleted!
 
     redirect_to user_expenses_path(user_id: user.id)
   end
