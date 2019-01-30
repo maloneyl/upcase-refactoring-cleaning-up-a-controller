@@ -32,12 +32,11 @@ class ExpensesController < ApplicationController
 
     @expense = user.expenses.find(params[:id])
 
-    if !@expense.approved
-      @expense.update_attributes!(expense_params)
+    if @expense.update_attributes(expense_params)
       flash[:notice] = 'Your expense has been successfully updated'
       redirect_to user_expenses_path(user_id: user.id)
     else
-      flash[:error] = 'You cannot update an approved expense'
+      flash[:error] = @expense.errors.full_messages.join("; ")
       render :edit
     end
   end
