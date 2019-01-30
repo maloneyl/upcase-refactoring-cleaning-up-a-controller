@@ -2,7 +2,7 @@ class ExpensesController < ApplicationController
   def index
     @user = find_user
     @expenses = ExpenseFilterQuery.new(
-      scope: @user.expenses,
+      scope: @user.expenses.active,
       filters: index_filter_params
     ).to_relation
   end

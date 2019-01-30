@@ -5,21 +5,23 @@ class ExpenseFilterQuery
   end
 
   def to_relation
-    if filters[:approved].nil?
-      expenses = scope.active
-    else
-      expenses = scope.active.where(approved: filters[:approved])
+    return scope if filters.empty?
+
+    filtered_scope = scope
+
+    if filters.has_key?(:approved)
+      filtered_scope = filtered_scope.where(approved: filters[:approved])
     end
 
-    if !filters[:min_amount].nil?
-      expenses = expenses.where('amount > ?', filters[:min_amount])
+    if filters.has_key?(:min_amount)
+      filtered_scope = filtered_scope.where('amount > ?', filters[:min_amount])
     end
 
-    if !filters[:max_amount].nil?
-      expenses = expenses.where('amount < ?', filters[:max_amount])
+    if filters.has_key?(:max_amount)
+      filtered_scope = filtered_scope.where('amount < ?', filters[:max_amount])
     end
 
-    expenses
+    filtered_scope
   end
 
   private
