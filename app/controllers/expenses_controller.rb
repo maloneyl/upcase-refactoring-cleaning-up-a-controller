@@ -1,20 +1,10 @@
 class ExpensesController < ApplicationController
   def index
     @user = find_user
-
-    if params[:approved].nil?
-      @expenses = @user.expenses.active
-    else
-      @expenses = @user.expenses.active.where(approved: params[:approved])
-    end
-
-    if !params[:min_amount].nil?
-      @expenses = @expenses.where('amount > ?', params[:min_amount])
-    end
-
-    if !params[:max_amount].nil?
-      @expenses = @expenses.where('amount < ?', params[:max_amount])
-    end
+    @expenses = ExpenseFilterQuery.new(
+      scope: @user.expenses,
+      filters: index_filter_params
+    ).to_relation
   end
 
   def new
@@ -71,6 +61,10 @@ class ExpensesController < ApplicationController
 
   def find_user
     @_user ||= User.find(params[:user_id])
+  end
+
+  def index_filter_params
+    params.slice(:approved, :min_amount, :max_amount)
   end
 
   def expense_params
