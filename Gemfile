@@ -6,6 +6,7 @@ gem 'rails', '>= 4.0.0'
 gem 'flutie'
 
 group :development, :test do
+  gem 'pry-byebug'
   gem 'factory_girl_rails'
   gem 'rspec-rails', '>= 2.14'
 end

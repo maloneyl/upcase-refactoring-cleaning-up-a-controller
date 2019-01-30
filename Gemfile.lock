@@ -29,12 +29,14 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     builder (3.2.2)
+    byebug (10.0.2)
     capybara (2.2.0)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    coderay (1.1.2)
     database_cleaner (1.2.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
@@ -50,6 +52,7 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    method_source (0.9.2)
     mime-types (1.25.1)
     mini_portile (0.5.3)
     minitest (5.3.4)
@@ -58,6 +61,12 @@ GEM
       mini_portile (~> 0.5.0)
     pg (0.17.1)
     polyglot (0.3.5)
+    pry (0.12.2)
+      coderay (~> 1.1.0)
+      method_source (~> 0.9.0)
+    pry-byebug (3.6.0)
+      byebug (~> 10.0)
+      pry (~> 0.10)
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
@@ -119,6 +128,10 @@ DEPENDENCIES
   factory_girl_rails
   flutie
   pg
+  pry-byebug
   rack-timeout
   rails (>= 4.0.0)
   rspec-rails (>= 2.14)
+
+BUNDLED WITH
+   1.17.3
